@@ -31,19 +31,12 @@ struct OnboardingView: View { // this is how we create a view suing swiftui
     
     var body: some View { // every single view needs a body
         TabView{
-            
-            PageView()
-                .background(Color.red)
-            
-            PageView()
-                .background(Color.blue)
-            
-            PageView()
-                .background(Color.green)
-            
-            PageView()
-                .background(Color.orange)
-            
+    
+            PageView(title: "Push Notification", subTitle: "Enable Push", imageName: "bell")
+            PageView(title: "BookMarks", subTitle: "Save Places", imageName: "bookmark")
+            PageView(title: "Home", subTitle: "Go Home", imageName: "Home")
+            PageView(title: "Flight", subTitle: "Book Flights Anytime", imageName: "plane")
+
         }
         .tabViewStyle(PageTabViewStyle()) // adds swiping style
     }
@@ -51,19 +44,26 @@ struct OnboardingView: View { // this is how we create a view suing swiftui
 
 // creating a reusable component
 struct PageView: View{
+    let title: String
+    let subTitle: String
+    let imageName: String
+
     
     var body: some View {
         VStack{
-            Image(systemName: "bell")
+            Image(systemName: imageName)
                 .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 150, height: 150)
                 .padding()
             
-            Text("Push Notification")
+            Text(title)
                 .font(.system(size: 30))
                 .padding()
             
-            Text("Enable Notification")
+            Text(subTitle)
                 .font(.system(size: 30))
+                .multilineTextAlignment(.center)
                 .foregroundColor(Color(.secondaryLabel))
                 .padding()
 
