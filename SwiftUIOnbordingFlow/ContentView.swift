@@ -14,12 +14,12 @@ struct ContentView: View {
     var body: some View {
         NavigationView{
             VStack{
-                Text("you are on the main page").padding()
+                Text("You are on the main page Welcome to the App").padding()
         }
             .navigationTitle("Home")
       }
         .fullScreenCover(isPresented: $shouldShowOnboarding) { // shows onboarding modally
-            OnboardingView()
+            OnboardingView(shouldShowOnboarding: $shouldShowOnboarding)
         }
     }
     
@@ -28,14 +28,14 @@ struct ContentView: View {
 //create an onboarding view
 
 struct OnboardingView: View { // this is how we create a view suing swiftui
+    @Binding var shouldShowOnboarding: Bool  //
     
     var body: some View { // every single view needs a body
         TabView{
-    
-            PageView(title: "Push Notification", subTitle: "Enable Push", imageName: "bell")
-            PageView(title: "BookMarks", subTitle: "Save Places", imageName: "bookmark")
-            PageView(title: "Home", subTitle: "Go Home", imageName: "Home")
-            PageView(title: "Flight", subTitle: "Book Flights Anytime", imageName: "plane")
+            PageView(title: "Push Notification", subTitle: "Enable Push", imageName: "bell", showDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
+            PageView(title: "BookMarks", subTitle: "Save Places", imageName: "bookmark", showDismissButton: false,shouldShowOnboarding: $shouldShowOnboarding)
+            PageView(title: "Home", subTitle: "Go Home", imageName: "Home", showDismissButton: false,shouldShowOnboarding: $shouldShowOnboarding)
+            PageView(title: "Flight", subTitle: "Book Flights Anytime", imageName: "plane", showDismissButton: true, shouldShowOnboarding: $shouldShowOnboarding)
 
         }
         .tabViewStyle(PageTabViewStyle()) // adds swiping style
@@ -47,6 +47,9 @@ struct PageView: View{
     let title: String
     let subTitle: String
     let imageName: String
+    let showDismissButton: Bool
+    @Binding var shouldShowOnboarding: Bool
+
 
     
     var body: some View {
@@ -66,14 +69,32 @@ struct PageView: View{
                 .multilineTextAlignment(.center)
                 .foregroundColor(Color(.secondaryLabel))
                 .padding()
+            
+            if showDismissButton {
+                Button ( action: {
+                    shouldShowOnboarding.toggle()
+                },
+                    //put your action here
+                 label: {
+                    Text("Get Started")
+                        .bold()
+                        .foregroundColor(Color.white)
+                        .frame(width: 200, height: 50)
+                        .background(Color.green)
+                        .cornerRadius(6)
+                }
+
+                              
+            )}
 
         }
         
     }
-}
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
+}
 }
