@@ -26,16 +26,32 @@ struct ContentView: View {
 }
 
 //create an onboarding view
-
 struct OnboardingView: View { // this is how we create a view suing swiftui
+    
     @Binding var shouldShowOnboarding: Bool  //
     
     var body: some View { // every single view needs a body
         TabView{
-            PageView(title: "Push Notification", subTitle: "Enable Push", imageName: "bell", showDismissButton: false, shouldShowOnboarding: $shouldShowOnboarding)
-            PageView(title: "BookMarks", subTitle: "Save Places", imageName: "bookmark", showDismissButton: false,shouldShowOnboarding: $shouldShowOnboarding)
-            PageView(title: "Home", subTitle: "Go Home", imageName: "Home", showDismissButton: false,shouldShowOnboarding: $shouldShowOnboarding)
-            PageView(title: "Flight", subTitle: "Book Flights Anytime", imageName: "plane", showDismissButton: true, shouldShowOnboarding: $shouldShowOnboarding)
+            PageView(title: "Push Notification",
+                     subTitle: "Enable Push",
+                     imageName: "bell",
+                     showDismissButton: false,
+                     shouldShowOnboarding: $shouldShowOnboarding)
+            PageView(title: "BookMarks",
+                     subTitle: "Save Places",
+                     imageName: "bookmark",
+                     showDismissButton: false,
+                     shouldShowOnboarding: $shouldShowOnboarding)
+            PageView(title: "Home",
+                     subTitle: "Go Home",
+                     imageName: "Home",
+                     showDismissButton: false,
+                     shouldShowOnboarding: $shouldShowOnboarding)
+            PageView(title: "Flight",
+                     subTitle: "Book Flights Anytime",
+                     imageName: "plane",
+                     showDismissButton: true,
+                     shouldShowOnboarding: $shouldShowOnboarding)
 
         }
         .tabViewStyle(PageTabViewStyle()) // adds swiping style
@@ -48,10 +64,9 @@ struct PageView: View{
     let subTitle: String
     let imageName: String
     let showDismissButton: Bool
+    
     @Binding var shouldShowOnboarding: Bool
 
-
-    
     var body: some View {
         VStack{
             Image(systemName: imageName)
@@ -91,10 +106,9 @@ struct PageView: View{
         
     }
 
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+        }
     }
-}
 }
